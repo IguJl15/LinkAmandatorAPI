@@ -25,14 +25,18 @@ class ShortenerService {
   }
 
   async shortUrl(param: LongUrl): Promise<Url | Failure> {
-
     if(param.url.length < 3) return new EmptyUrl();
     
     const shortCode = this.generateShortCode();
+    const uuid = this.generateUuid();
 
-    const shortUrl = new Url(UuidProvider.v4(), param.url, shortCode);
+    const url = new Url(uuid, param.url, shortCode);
 
-    return await this.urlRepository.save(shortUrl);
+    return await this.urlRepository.save(url);
+  }
+
+  private generateUuid() {
+    return UuidProvider.v4();
   }
 
   private generateShortCode(): string {
