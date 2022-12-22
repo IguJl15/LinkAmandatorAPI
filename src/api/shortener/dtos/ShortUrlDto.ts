@@ -1,7 +1,8 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsUrl } from 'class-validator';
 
 class ShortUrlRequestModel {
   @IsNotEmpty()
+  @IsUrl()
   longUrl: string;
 }
 

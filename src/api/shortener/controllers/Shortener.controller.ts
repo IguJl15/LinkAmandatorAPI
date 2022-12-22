@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpException,
+  HttpStatus,
   Param,
   Post,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import LongUrl from 'src/domain/shortener/dtos/LongUrl';
 import ShortCode from 'src/domain/shortener/dtos/ShortCode';
 import ShortenerService from 'src/domain/shortener/services/Shortener.service';
 import ShortUrlRequestModel from '../dtos/ShortUrlDto';
+import EmptyUrl from 'src/domain/shortener/errors/EmptyUrl';
 // import ShortUrlDto from '../dtos/ShortUrlDto';
 
 @Controller()
@@ -36,6 +38,7 @@ class ShortenerController {
 
     const result = await this.shortenerService.shortUrl(longUrl);
 
+    if (result instanceof EmptyUrl) return new HttpException(result.error, HttpStatus.BAD_REQUEST);
     if (result instanceof Failure) return new HttpException(result.error, 500);
 
     return result;
