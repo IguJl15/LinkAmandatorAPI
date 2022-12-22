@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ShortenerController } from './shortener.controller';
+import ShortenerController from './Shortener.controller';
 
 describe('EncurtadorController', () => {
   let controller: ShortenerController;
