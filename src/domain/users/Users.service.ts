@@ -7,25 +7,26 @@ import InvalidAuthenticationRequest from './erros.ts/InvalidAuthRequest';
 import RegisterModel from './dto/RegisterModel';
 import * as UuidProvider from 'uuid';
 import UserAlreadyExists from './erros.ts/UserAlreadyExists';
+import AuthFailure from './erros.ts/AuthFailure';
 
 // Data transfer object
 
 class UsersService {
   constructor(private readonly repository: UserRepository) {}
 
-  async login(params: LoginRequest): Promise<User | Failure> {
-    const validate = params.validate();
-    if (validate != null) return new InvalidAuthenticationRequest(validate);
+  async login(loginrequest: LoginRequest): Promise<User | AuthFailure> {
+    const errors = loginrequest.validate();
+    if (errors != null) return new InvalidAuthenticationRequest(errors);
 
-    const user = await this.repository.findByEmail(params.email);
+    const user = await this.repository.findByEmail(loginrequest.email);
 
     if (user == null) return new UserNotFound(); // nenhum usuário com este email encontrado
-    if (user.password !== params.password) return new UserNotFound(); // senha incorreta
+    if (user.password !== loginrequest.password) return new UserNotFound(); // senha incorreta
 
     return user;
   }
 
-  async register(registerModel: RegisterModel): Promise<User | Failure> {
+  async register(registerModel: RegisterModel): Promise<User | AuthFailure> {
     const validate = registerModel.validate();
     if (validate != null) return new InvalidAuthenticationRequest(validate);
 
