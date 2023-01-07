@@ -1,4 +1,5 @@
 import EmailValidator from "src/domain/validators/EmailValidator";
+import PasswordValidator from "src/domain/validators/PasswordValidator";
 
 class LoginRequest {
   email: string;

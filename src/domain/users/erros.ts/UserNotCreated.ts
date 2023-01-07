@@ -1,10 +1,8 @@
 import Failure from 'src/common/errors/Failure';
 import AuthFailure from './AuthFailure';
 
-class UserNotFound extends AuthFailure {
+class UserNotCreated extends AuthFailure {
   constructor(public readonly details?: object) {
-    super('User not found', details);
+    super('User not created.', details);
   }
 }
-
-export default UserNotFound;
