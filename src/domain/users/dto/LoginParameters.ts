@@ -1,9 +1,11 @@
 import EmailValidator from "src/domain/validators/EmailValidator";
 import PasswordValidator from "src/domain/validators/PasswordValidator";
 
-class LoginRequest {
-  email: string;
-  password: string;
+class LoginParameters {
+  constructor(
+    public readonly email: string,
+    public readonly password: string,
+  ) {}
 
   validate(): null | string[] {
     const validEmail = EmailValidator.isValid(this.email);
@@ -18,4 +20,4 @@ class LoginRequest {
   }
 }
 
-export default LoginRequest;
+export default LoginParameters;

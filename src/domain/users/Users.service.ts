@@ -1,6 +1,6 @@
 import * as UuidProvider from 'uuid';
-import LoginRequest from './dto/LoginRequest';
-import RegisterRequest from './dto/RegisterRequest';
+import LoginParameters from './dto/LoginParameters';
+import RegisterParameters from './dto/RegisterParameters';
 import User from './entities/User';
 import AuthFailure from './erros.ts/AuthFailure';
 import InvalidAuthenticationRequest from './erros.ts/InvalidAuthRequest';
@@ -12,7 +12,7 @@ import UserRepository from './UserRepository';
 class UsersService {
   constructor(private readonly repository: UserRepository) {}
 
-  async login(loginrequest: LoginRequest): Promise<User | AuthFailure> {
+  async login(loginrequest: LoginParameters): Promise<User | AuthFailure> {
     const errors = loginrequest.validate();
     if (errors != null) return new InvalidAuthenticationRequest(errors);
 
@@ -24,7 +24,7 @@ class UsersService {
     return user;
   }
 
-  async register(registerModel: RegisterRequest): Promise<User | AuthFailure> {
+  async register(registerModel: RegisterParameters): Promise<User | AuthFailure> {
     const validate = registerModel.validate();
     if (validate != null) return new InvalidAuthenticationRequest(validate);
 
@@ -47,3 +47,5 @@ class UsersService {
     return createdUser;
   }
 }
+
+export default UsersService;

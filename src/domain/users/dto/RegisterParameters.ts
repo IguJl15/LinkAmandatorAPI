@@ -1,7 +1,7 @@
 import EmailValidator from 'src/domain/validators/EmailValidator';
 import PasswordValidator from 'src/domain/validators/PasswordValidator';
 
-class RegisterRequest {
+class RegisterParameters {
   constructor(
     public name: string,
     public email: string,
@@ -28,4 +28,4 @@ class RegisterRequest {
   }
 }
 
-export default RegisterRequest;
+export default RegisterParameters;
