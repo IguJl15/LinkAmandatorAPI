@@ -50,7 +50,7 @@ class UsersController {
 
 
     if (user instanceof InvalidAuthRequest)
-      throw new HttpException(user.error, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(`${user.error}. ${(user.details as string[]).join(", ")}`, HttpStatus.UNAUTHORIZED);
     if (user instanceof UserNotCreated)
       throw new HttpException(user.error, HttpStatus.INTERNAL_SERVER_ERROR);
     if (user instanceof Failure)

@@ -1,7 +1,7 @@
 import User from "src/domain/users/entities/User";
 import UserRepository from "src/domain/users/UserRepository";
 
-class ListUserRepository implements UserRepository {
+export class ListUserRepository implements UserRepository {
     private readonly usersList: User[] = []
 
     findById(id: string): PromiseOr<User | null> {

@@ -1,4 +1,3 @@
-import Failure from 'src/common/errors/Failure';
 import AuthFailure from './AuthFailure';
 
 class InvalidAuthenticationRequest extends AuthFailure {
