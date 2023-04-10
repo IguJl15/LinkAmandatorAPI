@@ -1,4 +1,5 @@
 import * as UuidProvider from 'uuid';
+import UserRepository from './UserRepository';
 import LoginParameters from './dto/LoginParameters';
 import RegisterParameters from './dto/RegisterParameters';
 import User from './entities/User';
@@ -7,12 +8,12 @@ import InvalidAuthenticationRequest from './erros.ts/InvalidAuthRequest';
 import UserAlreadyExists from './erros.ts/UserAlreadyExists';
 import UserNotCreated from './erros.ts/UserNotCreated';
 import UserNotFound from './erros.ts/UserNotFound';
-import UserRepository from './UserRepository';
 import { Inject } from '@nestjs/common';
 
 class UsersService {
   constructor(
-    @Inject('UserRepository') private readonly repository: UserRepository,
+    @Inject('UserRepository')
+    private readonly repository: UserRepository,
   ) {}
 
   async login(loginRequest: LoginParameters): Promise<User | AuthFailure> {
@@ -33,8 +34,6 @@ class UsersService {
     const validate = registerModel.validate();
     if (validate != null) return new InvalidAuthenticationRequest(validate);
 
-    console.log( this.repository);
-    
     if (this.repository.findByEmail(registerModel.email) != null)
       return new UserAlreadyExists();
 

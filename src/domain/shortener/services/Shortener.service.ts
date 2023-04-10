@@ -4,13 +4,12 @@ import ShortCode from '../dtos/ShortCode';
 import Url from '../entities/Url';
 import { LongUrlNotFound } from '../errors/UrlNotFound';
 import UrlRepository from '../repositories/UrlRepository';
-import { Inject, Injectable } from '@nestjs/common';
 // TODO(): Invert control/dependency of both ShortId and Uuid Provider
+import { Inject } from '@nestjs/common';
 import * as ShortIdProvider from 'shortid';
 import * as UuidProvider from 'uuid';
 import EmptyUrl from '../errors/EmptyUrl';
 
-@Injectable()
 class ShortenerService {
   constructor(
     @Inject('UrlRepository') private readonly urlRepository: UrlRepository,
@@ -25,8 +24,8 @@ class ShortenerService {
   }
 
   async shortUrl(param: LongUrl): Promise<Url | Failure> {
-    if(param.url.length < 3) return new EmptyUrl();
-    
+    if (param.url.length < 3) return new EmptyUrl();
+
     const shortCode = this.generateShortCode();
     const uuid = this.generateUuid();
 
